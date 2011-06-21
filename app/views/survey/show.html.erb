@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+	</head>
+	<body>
+		<%= javascript_include_tag "/survey_client/steal/steal.js?survey,development" %>
+
+		<script type="text/javascript" language="javascript">
+
+			// turn on or off admin options, currently consisting of the ability to retake a survey
+			ADMIN = false;
+
+			EXIT_PATH = '<%= root_path %>';
+
+			// turn on or off transitions
+			TRANSITIONS = false;
+
+			AJAX_ERROR_CALLBACKS = {};
+
+			// turn on or off ability to exit out to an overview of all surveys on a record
+			ALLOW_EXIT = true;
+
+			var connector = {
+				get_survey: function(callback) {
+				var sessionId = this.get_session_id();
+					$.get("../raw/<%= @id %>" + (sessionId ? ("?_surveyserver_session=" + this.get_session_id()) : ''), function(survey_raw) {
+					callback(survey_raw);
+				});
+			},
+
+			get_survey_metadata: function(callback) {
+				var sessionId = this.get_session_id();
+				$.get("../meta/<%= @id %>" + (sessionId ? ("?_surveyserver_session=" + this.get_session_id()) : ''), function(meta_raw) {
+					callback(meta_raw);
+				});
+			},
+
+			get_state: function(callback) {
+			var sessionId = this.get_session_id();
+				$.get("../state/<%= @id %>" + (sessionId ? ("?_surveyserver_session=" + this.get_session_id()) : ''), function(state_raw) {
+					callback(state_raw);
+				});
+			},
+
+			get_answers: function(callback) {
+				var sessionId = this.get_session_id();
+					$.get("../answers/<%= @id %>" + (sessionId ? ("?_surveyserver_session=" + this.get_session_id()) : ''), function(answers_raw) {
+				callback(answers_raw);
+				});
+			},
+
+			save_state: function(survey, state, success, error) {
+				var sessionId = this.get_session_id();
+				AJAX_ERROR_CALLBACKS['../save_state/<%= @id %>' + (sessionId ? ("?_surveyserver_session=" + this.get_session_id()) : '')] = error;
+				$.post("../save_state/<%= @id %>" + (sessionId ? ("?_surveyserver_session=" + this.get_session_id()) : ''), {survey_state:state<%= ", authenticity_token: AUTH_TOKEN"  if protect_against_forgery? %>}, function(result) {
+					success(result);
+				});
+			},
+
+			save_answers: function(survey, answers, success, error) {
+				var sessionId = this.get_session_id();
+				AJAX_ERROR_CALLBACKS['../save_answers/<%= @id %>' + (sessionId ? ("?_surveyserver_session=" + this.get_session_id()) : '')] = error;
+				$.post("../save_answers/<%= @id %>" + (sessionId ? ("?_surveyserver_session=" + this.get_session_id()) : ''), {answers_xml:answers<%= ", authenticity_token: AUTH_TOKEN"  if protect_against_forgery? %>
+					}, function(result) {
+					success(result);
+					});
+			},
+
+			//TODO: better way
+			get_session_id: function(){
+				var id = '';
+				var url = window.location.toString();
+				var pattern = /surveyserver_session=\w*/;
+				var session = url.match(pattern);
+				if (session != null) {
+					id = session[0].split('=')[1];
+				}
+				return id;
+				}
+			};
+
+			$(document).ready( function() {
+				CALENDAR_PNG = '/survey_client/survey/resources/cal.png';
+				OpenAjax.hub.publish('main.load', {
+					'data_connector' : connector
+				});
+				$.progressBar.defaults.boxImage = '/survey_client/survey/resources/jquery.progressbar/images/progressbar.gif';
+				$.progressBar.defaults.barImage = '/survey_client/survey/resources/jquery.progressbar/images/progressbg_green.gif';
+
+				$('#survey').ajaxError( function(e, xhr, settings, exception) {
+					AJAX_ERROR_CALLBACKS[settings.url]();
+				});
+			});
+		</script>
+		<!-- div tag for header -->
+		<div id="survey">
+		</div>
+	</body>
+</html>
+

@@ -1,0 +1,10 @@
+<Document id="test" type="http://indivo.org/vocab/xml/documents#Survey" size="14869" digest="test" record_id="test">
+<createdAt>2011-02-17T02:58:41Z</createdAt>
+<creator id="sample_admin_app@apps.indivo.org" type="MachineApp">
+<fullname/>
+</creator>
+<original id="test"/>
+<latest id="test" createdAt="2011-02-17T02:58:41Z" createdBy="sample_admin_app@apps.indivo.org"/>
+<status>active</status>
+<nevershare>false</nevershare>
+</Document>

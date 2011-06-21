@@ -1,0 +1,20 @@
+
+<h3>User Login</h3>
+
+<% if @record %>
+<p>
+<b>You are logged in as record <em><%=h @record.record_id %></em></b>
+[<%= link_to "logout", :action => 'logout' %>]
+
+<br /><br />
+<%= link_to "Go to Surveys", :controller => 'survey', :action => 'home' %>
+
+</p>
+<% else %>
+<p>
+Go <%= link_to "log in via Indivo", :action => 'go_add' %>.
+</p>
+
+<% end %>
+
+

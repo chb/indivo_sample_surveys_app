@@ -1,0 +1,36 @@
+body {
+	margin: 5px;	
+}
+
+sup {
+	font-size: 9pt;
+}
+
+.survey-table {
+	margin-left: 15px;
+	margin-top: 5px;
+}
+
+.survey-table th {
+	text-align: left;
+}
+
+.survey-table tr {
+	font-size: 13pt;
+	margin-bottom: 10px;
+}
+
+.survey-table td {
+	padding-right: 10px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+.small .ui-button-text { 
+	padding: 0em 0.5em;
+	font-size: 10pt; 
+}
+
+.button {
+	margin-left: 5px;
+}

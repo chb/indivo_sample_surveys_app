@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag "/survey_client/survey/resources/css/redmond/jquery-ui-1.8.6.custom.css" %>
+<%= stylesheet_link_tag "/survey_client/survey/resources/css/survey" %>
+<%= stylesheet_link_tag "main" %>
+
+<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" %>
+<%= javascript_include_tag "/survey_client/survey/resources/jquery-ui-1.8.6.custom.min.js" %>
+<%= javascript_include_tag "application" %>
+
+<h2>Available Surveys</h2>
+
+<table class="survey-table">
+	<tr>
+		<th>Name</th>
+		<th>Date Added</th>
+	</tr>
+	<% for survey in @surveys %>
+		<tr>
+			<td><%= survey[:name] %><% if survey[:state].nil? or survey[:state].empty?%> <sup>new</sup><% end %></td>
+			<td><%= survey[:createdAt].strftime("%m/%d/%Y") %></td>
+			<td>
+				<% if !survey[:answers].nil? and !survey[:answers].empty? %>
+					<%= link_to "review", { :controller => :survey, :action => :show, :id => survey[:id] }, :class => "button small" %>
+				<% elsif !survey[:state].nil? and !survey[:state].empty? %>
+					<%= link_to "continue", { :controller => :survey, :action => :show, :id => survey[:id] }, :class => "button small" %>
+				<% else %>
+					<%= link_to "start", { :controller => :survey, :action => :show, :id => survey[:id] }, :class => "button small" %>
+				<% end %>
+			</td>
+		</tr> 
+	<% end %>
+</table>
+
+<% if @surveys.length == 0 %>
+	<em>no surveys</em>
+	<%= link_to 'preview test survey', :controller => :survey, :action => :show, :id => 'test' %>
+<% end %>

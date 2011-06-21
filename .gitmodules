@@ -1,0 +1,3 @@
+[submodule "public/survey_client"]
+	path = public/survey_client
+	url = git://github.com/chb/survey_client.git
