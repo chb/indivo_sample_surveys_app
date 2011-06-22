@@ -1,6 +1,8 @@
 # Indivo Sample Surveys App
 
 ## About
+This is an  [Indivo](http://indivohealth.org/) app that allows users to take surveys stored on their records using the [Indivo Survey Client](https://github.com/chb/survey_client).  Survey state and answers are stored in the user's record, so they can complete the survey at a later time, or review answers they have submitted.  If a user does not have any Survey documents on their record, the application will allow them to take an example survey, which does not have its state or answers stored on the record.
+
 ## installation (Ubuntu)
 * You will need to have the following installed for a basic setup
  * Ruby 1.8.7 
