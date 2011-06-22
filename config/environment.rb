@@ -1,5 +1,17 @@
 # Be sure to restart your server when you modify this file
 
+# fix for issues with rails 2.3.x and newer RubyGems
+if Gem::VERSION >= "1.3.6" 
+    module Rails
+        class GemDependency
+            def requirement
+                r = super
+                (r == Gem::Requirement.default) ? nil : r
+            end
+        end
+    end
+end
+
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
 # ENV['RAILS_ENV'] ||= 'production'
@@ -31,10 +43,6 @@ Rails::Initializer.run do |config|
 
   config.gem 'rack',
              :version => '>= 1.0.0'
-
-  config.gem 'ruby-debug',
-             :version => '>= 0.10.3'
-  
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

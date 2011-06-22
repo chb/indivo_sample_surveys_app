@@ -1,8 +1,6 @@
 #
 # Record wrapper to Indivo
 #
-require 'ruby-debug'
-
 class Record
   def initialize(token)
     @token = token

@@ -5,8 +5,6 @@ require 'base64'
 
 require 'cgi'
 
-require 'ruby-debug'
-
 require 'basic_client/basic_client'
 require 'basic_client/null_logger'
 
