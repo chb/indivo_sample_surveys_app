@@ -30,6 +30,18 @@ This is an  [Indivo](http://indivohealth.org/) app that allows users to take sur
 ## Configuration
 * You will need an instance of [Indivo Server](https://github.com/chb/indivo_server) and [Indivo UI Server](https://github.com/chb/indivo_ui_server) installed, and have generated credentials for the Indivo Sample Surveys App.  See the [Indivo](http://indivohealth.org/) website for more information.
 * edit <code>$APP_HOME/config/indivo.yml</code> to configure the app's credentials, and the location of your Indivo X and Indivo UI Servers
+* A sample user app configuration for your Indivo installation bootstrap is
+ <pre>&lt;user_app name='OldSurveys' email='survey_server@apps.chip.org'&gt;
+      &lt;consumer_key&gt;survey_server_old&lt;/consumer_key&gt;
+      &lt;secret&gt;survey_server_old&lt;/secret&gt;
+      &lt;has_ui&gt;True&lt;/has_ui&gt;
+      &lt;frameable&gt;True&lt;/frameable&gt;
+      &lt;start_url_template&gt;
+        http://mymachine:3000/user/go_add?record_id={record_id}
+      &lt;/start_url_template&gt;
+      &lt;callback_url&gt;http://mymachine:3000/user/after&lt;/callback_url&gt;
+      &lt;description&gt;Fill out surveys&lt;/description&gt;
+    &lt;/user_app&gt;</pre>
 
 ## Running 
 * To launch the Sample Surveys App on localhost port 3000, run the following
