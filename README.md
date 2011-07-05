@@ -3,7 +3,7 @@
 ## About
 This is an  [Indivo](http://indivohealth.org/) app that allows users to take surveys stored on their records using the [Indivo Survey Client](https://github.com/chb/survey_client).  Survey state and answers are stored in the user's record, so they can complete the survey at a later time, or review answers they have submitted.  If a user does not have any Survey documents on their record, the application will allow them to take an example survey, which does not have its state or answers stored on the record.
 
-## installation (Ubuntu)
+## Installation (Ubuntu)
 * You will need to have the following installed for a basic setup
  * Ruby 1.8.7 
  * Rails 2.3.4+
@@ -19,6 +19,10 @@ This is an  [Indivo](http://indivohealth.org/) app that allows users to take sur
 
 * install required gems
  * <code>sudo gem install sqlite3 xml-simple libxml-ruby ruby-xslt</code>
+
+* create config files from sample ones
+ * <code>cp $APP_HOME/config/database.yml.sample database.yml</code>
+ * <code>cp $APP_HOME/config/indivo.yml.sample indivo.yml</code>
 
 * Create and migrate the database
   * <code>$APP_HOME/rake db:migrate</code>
